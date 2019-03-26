@@ -1,0 +1,41 @@
+---
+resources:
+  - name: testing-overview
+    type: git
+    source:
+      uri: https://github.com/bjstks/testing-overview.git
+      branch: master
+
+  - name: pcf-deploy
+    type: cf
+    source:
+      api: https://api.run.pcfone.io
+      username: ((username))
+      password: ((password))
+      organization: ((organization))
+      space: ((space))
+
+jobs:
+  - name: test
+    plan:
+      - get: testing-overview
+        trigger: true
+      - task: kotlin-test
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: openjdk
+              tag: 11-jdk-oracle
+          inputs:
+            - name: testing-overview
+          outputs:
+            - name: libs
+              path: ./testing-overview/build/libs
+          run:
+            path: testing-overview/ci/test.sh
+      - put: pcf-deploy
+        params:
+          path: libs/testing-overview-0.0.1-SNAPSHOT.jar
+          manifest: testing-overview/manifest.yml

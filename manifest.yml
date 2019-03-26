@@ -1,0 +1,4 @@
+---
+applications:
+  - name: testing-overview
+    buildpack: java_buildpack_offline
