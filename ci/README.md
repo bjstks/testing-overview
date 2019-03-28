@@ -1,8 +1,10 @@
 
 ##### what is it
- + ['open source thing doer'](https://concourse-ci.org/)
- + server can be ran locally with docker, or configured on a vm running a worker, web, and postgresql node
- + uses the [fly cli](https://concourse-ci.org/fly.html) for communication to work with pipelines
++ ['open source thing doer'](https://concourse-ci.org/)
+    - general approach to automation
++ server can be ran locally with docker, or configured on a vm running a worker, web, and postgresql node
+    - clear out volumes when you're finished: `docker system prune --all --force --volumes`
++ uses the [fly cli](https://concourse-ci.org/fly.html) for communication to work with pipelines
 
 ##### fly login/setup
 1. `fly --target local login --concourse-url http://localhost:8080`
@@ -28,12 +30,12 @@
     - create a pipeline named `sample-pipeline` using the `pipeline.yml` file
 1. `fly -t local unpause-pipeline -p sample-pipeline`
     - unpause the pipeline that is paused by default
- 
+
 ##### resources
 1. represent all external inputs and outputs
     - git, pcf, nexus, etc.
 1. [options](https://github.com/concourse?query=-resource)
- 
+
 ##### jobs
 + determine the actions of your pipeline and how resources progress through it
 + determine how your pipeline is visualized
@@ -47,17 +49,17 @@
     - pause specific job from running
 1. `fly -t local intercept -j sample-pipeline/test`
     - tunnel into job/docker container to debug failed test
-  
+
 ##### tasks
 + smallest configurable unit
 + pure function that can pass/fail
  
 1. `fly -t local execute --config task.yml`
     - runs a one off task
-   
+
 ##### build
 + an execution of a build plan
 + one off result of `fly execute`
- 
+
 1. `fly -t local abort-build --job sample-pipeline/test --build 5`
     - abort a specific build for a job

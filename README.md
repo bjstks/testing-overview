@@ -15,10 +15,10 @@ Testing Pyramid
 + simple approach, only use as a rule of thumb
 + dont get attached to each tier's name 
 + the two most important takeaways
- - write tests with different granularity
- - the more high-level you get the fewer tests you should have
+    - write tests with different granularity
+    - the more high-level you get the fewer tests you should have
 + ui vs e2e can be used interchangeable ...
- - testing an application end to end often means driving your tests through your user interface however the inverse is not always true
+    - testing an application end to end often means driving your tests through your user interface however the inverse is not always true
 
 #### specifics
 
@@ -47,7 +47,7 @@ Testing Pyramid
     + testing getters and setters is dumb
 1. integration tests
     + fewer tests that have a longer feedback loop
-    + test the integration with all of teh parts that live outside of your application
+    + test the integration with all of the parts that live outside of your application
     + test all pieces of code where you either serialize/deserialize data
         - calls to REST API
         - reading from and writing to databases
@@ -76,3 +76,44 @@ Testing Pyramid
         - a reusable component should be tried out in three different applications before it will be sufficiently general to accept into a reuse library
 
 ## fast feedback
+
+
+#### tdd
+
+1. Three Laws of TDD
+    + you are not allowed to write any production code unless it is to make a failing unit test pass.
+    + you are not allowed to write any more of a unit test than is sufficient to fail.
+    + you are not allowed to write any more production code than is sufficient to pass the one failing test.
+
+1. [The bad parts](https://www.youtube.com/watch?v=xPL84vvLwXA)
+    + why tdd?
+        - go fast forever
+        - clean code
+        - refactoring
+        - confidence
+    + problems?
+        - outside in bdd (acceptance -> controller -> model)
+            + slow
+            + flaky
+            + brittle
+            + coupled
+            - outside != gui
+                + start at the outside of what you want to discover
+        - mocking
+            + you dont have to mock everything
+            + accurately testing business logic > speed
+            + [The Little Mocker](https://blog.cleancoder.com/uncle-bob/2014/05/14/TheLittleMocker.html)
+            + [SOLID](https://hackernoon.com/solid-principles-made-easy-67b1246bcdf)
+        - unit testing
+            + common themes
+                - every class should be paired with a well-designed unit test
+                - every public method of every class should be paired with a well designed unit test
+            + test coupling
+                - refactoring into different design patterns will make these types of 
+                tests tightly coupled to their implementation class
+            + instead, every __behavior__ should be paired with a well designed unit test
+        - code coverage
+            + easy to cheat this system when developers do not buy in to its application
+            + having a more relaxed approach tends to get to good coverage
+
+    + [What is a Unit Test?](https://content.pivotal.io/blog/what-is-a-unit-test-the-answer-might-surprise-you)
